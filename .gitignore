@@ -1,0 +1,32 @@
+# Visual Studio
+.vs/
+*.VC.db
+*.VC.opendb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build folders
+x64/
+Debug/
+Release/
+out/
+bin/
+obj/
+
+# CMake/ cache
+CMakeFiles/
+CMakeCache.txt
+
+# Temp files
+*.log
+*.tmp
+
+# Executables 
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.idb
+*.tlog
