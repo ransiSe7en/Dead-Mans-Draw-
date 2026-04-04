@@ -2,10 +2,11 @@
 #include "Card.h"
 #include "Game.h"
 #include <iostream>
+#include <cstdlib>
 
 Player::Player() {
-    static int count = 1;
-    _name = "Player " + std::to_string(count++);
+    std::string names[] = { "Sam", "Billy", "Jen", "Bob", "Sally", "Joe", "Sue", "Sasha", "Tina", "Marge" };
+    _name = names[rand() % 10];
 }
 
 bool Player::playCard(Card* card, Game& game) {
@@ -59,7 +60,20 @@ void Player::discardPlayArea(Game& game) {
 }
 
 int Player::calculateScore() const {
-    return 0; 
+    int highest[10] = {0};
+
+    for (auto c : _bank) {
+        int index = static_cast<int>(c->type());
+        if (c->value() > highest[index]) {
+            highest[index] = c->value();
+        }
+    }
+
+    int total = 0;
+    for (int i = 0; i < 10; i++) {
+        total += highest[i];
+    }
+    return total; 
 }
 
 void Player::printBank() const {

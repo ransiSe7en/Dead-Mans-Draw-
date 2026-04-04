@@ -4,10 +4,13 @@
 #include <iostream>
 #include "Game.h"
 #include "game_title.h"
+#include <ctime>
+#include <cstdlib>
     
 
 int main()
 {
+    srand(static_cast<unsigned>(time(nullptr)));
     std::cout << GAME_TITLE << std::endl;
     
     Game game;

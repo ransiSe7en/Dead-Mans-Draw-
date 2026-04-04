@@ -94,6 +94,7 @@ void Game::playTurn() {
             player->bankPlayArea(*this);
             std::cout << "Cards banked." << std::endl;
             player->printBank();
+            std::cout << "Score: " << player->calculateScore() << std::endl;
             continueDrawing = false;
         }
     }
