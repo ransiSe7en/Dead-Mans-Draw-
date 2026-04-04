@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "Card.h"
 
-class Card;
 class Game;
 
 class Player {
@@ -29,4 +29,7 @@ public:
     void printPlayArea() const;
 
     std::string getName() const;
+
+    Card* getHighestBankCardOfSuit(CardType type) const;
+    void removeBankCard(Card* card);
 };

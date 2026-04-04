@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CannonCard.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="DeadMansDraw++.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CannonCard.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MermaidCard.h" />

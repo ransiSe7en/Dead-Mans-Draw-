@@ -4,6 +4,7 @@
 #include <iostream>
 #include "MermaidCard.h"
 #include "OracleCard.h"
+#include "CannonCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -23,8 +24,7 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new MermaidCard(4));
-    _deck.push_back(new OracleCard(5));
+    _deck.push_back(new CannonCard(5));
     _deck.push_back(new MermaidCard(6));
 }
 

@@ -103,3 +103,26 @@ void Player::printPlayArea() const {
 std::string Player::getName() const {
     return _name;
 }
+
+Card* Player::getHighestBankCardOfSuit(CardType type) const {
+    Card* highest = nullptr;
+
+    for (auto c : _bank) {
+        if (c->type() == type) {
+            if (highest == nullptr || c->value() > highest->value()) {
+                highest = c;
+            }
+        }
+    }
+
+    return highest;
+}
+
+void Player::removeBankCard(Card* card) {
+    for (auto it = _bank.begin(); it != _bank.end(); ++it) {
+        if (*it == card) {
+            _bank.erase(it);
+            return;
+        }
+    }
+}
