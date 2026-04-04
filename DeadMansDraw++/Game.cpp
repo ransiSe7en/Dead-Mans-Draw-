@@ -22,6 +22,7 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
+    _deck.push_back(new MermaidCard(4));
 }
 
 void Game::shuffleDeck() {
@@ -30,7 +31,22 @@ void Game::shuffleDeck() {
 void Game::start() {
     initialiseGame();
     createDeck();
+
     std::cout << "Game started" << std::endl;
+
+    Card* drawn = drawCard();
+    if (drawn != nullptr) {
+        bool bust = getCurrentPlayer()->playCard(drawn, *this);
+        std::cout << "Drew: " << drawn->str() << std::endl;
+        
+        if (bust) {
+            std::cout << "Player busted!" << std::endl;
+        }
+        else {
+            getCurrentPlayer()->printPlayArea();
+        }
+    
+    }
 }
 
 void Game::playTurn() {
@@ -38,7 +54,10 @@ void Game::playTurn() {
 }
 
 Card* Game::drawCard() {
-    if (_deck.empty()) return nullptr;
+    if (_deck.empty()) {
+        std::cout << "Deck is empty" << std::endl;
+        return nullptr;
+    }
 
     Card* c = _deck.back();
     _deck.pop_back();

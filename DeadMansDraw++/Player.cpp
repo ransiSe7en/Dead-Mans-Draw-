@@ -63,8 +63,14 @@ int Player::calculateScore() const {
 
 void Player::printBank() const {
     std::cout << "Bank: " << std::endl;
+    for (auto c : _bank) {
+        std::cout << "  " << c->str() << std::endl;
+    }
 }
 
 void Player::printPlayArea() const {
     std::cout << "Play Area: " << std::endl;
+    for (auto c : _playArea) {
+        std::cout << "  " << c->str() << std::endl;
+    }
 }
