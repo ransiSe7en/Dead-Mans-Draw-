@@ -27,4 +27,6 @@ public:
 
     void printBank() const;
     void printPlayArea() const;
+
+    std::string getName() const;
 };

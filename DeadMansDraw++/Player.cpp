@@ -4,7 +4,8 @@
 #include <iostream>
 
 Player::Player() {
-    _name = "Player"; 
+    static int count = 1;
+    _name = "Player " + std::to_string(count++);
 }
 
 bool Player::playCard(Card* card, Game& game) {
@@ -63,6 +64,11 @@ int Player::calculateScore() const {
 
 void Player::printBank() const {
     std::cout << "Bank: " << std::endl;
+    if (_bank.empty()) {
+        std::cout << "  Empty" << std::endl;
+        return;
+    }
+
     for (auto c : _bank) {
         std::cout << "  " << c->str() << std::endl;
     }
@@ -70,7 +76,16 @@ void Player::printBank() const {
 
 void Player::printPlayArea() const {
     std::cout << "Play Area: " << std::endl;
+    if (_playArea.empty()) {
+        std::cout << "  Empty" << std::endl;
+        return;
+    }
+
     for (auto c : _playArea) {
         std::cout << "  " << c->str() << std::endl;
     }
+}
+
+std::string Player::getName() const {
+    return _name;
 }

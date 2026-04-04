@@ -23,6 +23,8 @@ void Game::initialiseGame() {
 
 void Game::createDeck() {
     _deck.push_back(new MermaidCard(4));
+    _deck.push_back(new MermaidCard(5));
+    _deck.push_back(new MermaidCard(6));
 }
 
 void Game::shuffleDeck() {
@@ -33,6 +35,11 @@ void Game::start() {
     createDeck();
 
     std::cout << "Game started" << std::endl;
+
+    for (int i = 0; i < 2; i++) {
+        playTurn();
+        nextPlayer();
+    }
 
     Card* drawn = drawCard();
     if (drawn != nullptr) {
@@ -50,7 +57,48 @@ void Game::start() {
 }
 
 void Game::playTurn() {
-    std::cout << "Playing turn..." << std::endl;
+    Player* player = getCurrentPlayer();
+
+    std::cout << std::endl;
+    std::cout << "----- Turn " << _turn << " -----" << std::endl;
+    std::cout << player->getName() << "'s turn" << std::endl;
+    player->printBank();
+
+    bool continueDrawing = true;
+
+    while (continueDrawing) {
+        Card* drawn = drawCard();
+
+        if (drawn == nullptr) {
+            std::cout << "Deck is empty." << std::endl;
+            return;
+        }
+
+        std::cout << "Drew: " << drawn->str() << std::endl;
+
+        bool bust = player->playCard(drawn, *this);
+
+        if (bust) {
+            std::cout << "Bust!" << std::endl;
+            player->discardPlayArea(*this);
+            break;
+        }
+
+        player->printPlayArea();
+
+        std::string choice;
+        std::cout << "Draw again? (y/n): ";
+        std::cin >> choice;
+
+        if (choice != "y") {
+            player->bankPlayArea(*this);
+            std::cout << "Cards banked." << std::endl;
+            player->printBank();
+            continueDrawing = false;
+        }
+    }
+
+    _turn++;
 }
 
 Card* Game::drawCard() {
