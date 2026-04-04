@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Card.h"
 #include <iostream>
+#include "MermaidCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -28,6 +29,7 @@ void Game::shuffleDeck() {
 
 void Game::start() {
     initialiseGame();
+    createDeck();
     std::cout << "Game started" << std::endl;
 }
 

@@ -2,12 +2,17 @@
 //
 
 #include <iostream>
+#include "Game.h"
 #include "game_title.h"
     
 
 int main()
 {
     std::cout << GAME_TITLE << std::endl;
+    
+    Game game;
+    game.start();
+    
     return 0;
 }
 
