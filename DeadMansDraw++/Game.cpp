@@ -3,6 +3,7 @@
 #include "Card.h"
 #include <iostream>
 #include "MermaidCard.h"
+#include "OracleCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -23,7 +24,7 @@ void Game::initialiseGame() {
 
 void Game::createDeck() {
     _deck.push_back(new MermaidCard(4));
-    _deck.push_back(new MermaidCard(5));
+    _deck.push_back(new OracleCard(5));
     _deck.push_back(new MermaidCard(6));
 }
 
@@ -127,4 +128,11 @@ Player* Game::getOtherPlayer() {
 
 void Game::nextPlayer() {
     _currentPlayerIndex = 1 - _currentPlayerIndex;
+}
+
+Card* Game::peekTopDeck() const {
+    if (_deck.empty()) {
+        return nullptr;
+    }
+    return _deck.back();
 }

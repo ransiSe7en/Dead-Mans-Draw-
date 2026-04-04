@@ -32,4 +32,6 @@ public:
     Player* getOtherPlayer();
 
     void nextPlayer();
+
+    Card* peekTopDeck() const;
 };

@@ -30,6 +30,9 @@
     <ClCompile Include="MermaidCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="OracleCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MermaidCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OracleCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
