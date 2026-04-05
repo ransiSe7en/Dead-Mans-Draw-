@@ -126,3 +126,7 @@ void Player::removeBankCard(Card* card) {
         }
     }
 }
+
+void Player::addBankCard(Card* card) {
+    _bank.push_back(card);
+}

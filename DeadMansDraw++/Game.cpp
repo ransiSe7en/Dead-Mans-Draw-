@@ -5,6 +5,7 @@
 #include "MermaidCard.h"
 #include "OracleCard.h"
 #include "CannonCard.h"
+#include "HookCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -24,7 +25,8 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new CannonCard(5));
+    _deck.push_back(new HookCard(5));
+    _deck.push_back(new MermaidCard(4));
     _deck.push_back(new MermaidCard(6));
 }
 
@@ -37,7 +39,7 @@ void Game::start() {
 
     std::cout << "Game started" << std::endl;
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 3; i++) {
         playTurn();
         nextPlayer();
     }

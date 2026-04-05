@@ -32,4 +32,6 @@ public:
 
     Card* getHighestBankCardOfSuit(CardType type) const;
     void removeBankCard(Card* card);
+
+    void addBankCard(Card* card);
 };
