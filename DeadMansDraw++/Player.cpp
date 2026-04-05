@@ -131,6 +131,10 @@ void Player::addBankCard(Card* card) {
     _bank.push_back(card);
 }
 
+std::vector<Card*> Player::getBankCards() const {
+    return _bank;
+}
+
 bool Player::hasTypeInPlayArea(CardType type) const {
     for (auto c : _playArea) {
         if (c->type() == type) {

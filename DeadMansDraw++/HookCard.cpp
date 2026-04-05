@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 HookCard::HookCard(int value) : Card(CardType::Hook, value) {
 }
@@ -12,23 +13,27 @@ std::string HookCard::str() const {
 }
 
 void HookCard::play(Game& game, Player& player) {
-    Card* chosen = nullptr;
+    std::vector<Card*> bankCards = player.getBankCards();
 
-    for (int i = 0; i < 10; i++) {
-        CardType type = static_cast<CardType>(i);
-        Card* current = player.getHighestBankCardOfSuit(type);
-
-        if (current != nullptr) {
-            if (chosen == nullptr || current->value() > chosen->value()) {
-                chosen = current;
-            }
-        }
-    }
-
-    if (chosen == nullptr) {
-        std::cout << "Hook: no card to bring from bank to play area." << std::endl;
+    if (bankCards.empty()) {
+        std::cout << "Hook: no card available in bank." << std::endl;
         return;
     }
+
+    std::cout << "Select a card from your bank to play:" << std::endl;
+    for (int i = 0; i < static_cast<int>(bankCards.size()); i++) {
+        std::cout << "  " << (i + 1) << ". " << bankCards[i]->str() << std::endl;
+    }
+
+    int choice;
+    std::cin >> choice;
+
+    if (choice < 1 || choice > static_cast<int>(bankCards.size())) {
+        std::cout << "Hook: invalid choice." << std::endl;
+        return;
+    }
+
+    Card* chosen = bankCards[choice - 1];
 
     player.removeBankCard(chosen);
     player.addToPlayArea(chosen);

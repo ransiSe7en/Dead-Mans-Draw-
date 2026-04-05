@@ -36,6 +36,8 @@ public:
 
     void addBankCard(Card* card);
 
+    std::vector<Card*> getBankCards() const;
+
     bool hasTypeInPlayArea(CardType type) const;
     int playAreaSize() const;
 
