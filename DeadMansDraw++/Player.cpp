@@ -130,3 +130,16 @@ void Player::removeBankCard(Card* card) {
 void Player::addBankCard(Card* card) {
     _bank.push_back(card);
 }
+
+bool Player::hasTypeInPlayArea(CardType type) const {
+    for (auto c : _playArea) {
+        if (c->type() == type) {
+            return true;
+        }
+    }
+    return false;
+}
+
+int Player::playAreaSize() const {
+    return static_cast<int>(_playArea.size());
+}

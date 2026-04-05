@@ -38,4 +38,6 @@ public:
     std::vector<Card*> drawFromDiscard(int count);
 
     void forceKrakenDraws(Player& player, int count);
+
+    Card* drawOneFromDiscard();
 };

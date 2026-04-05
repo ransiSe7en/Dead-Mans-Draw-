@@ -34,4 +34,7 @@ public:
     void removeBankCard(Card* card);
 
     void addBankCard(Card* card);
+
+    bool hasTypeInPlayArea(CardType type) const;
+    int playAreaSize() const;
 };

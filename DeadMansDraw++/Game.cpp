@@ -9,6 +9,8 @@
 #include "SwordCard.h"
 #include "MapCard.h"
 #include "KrakenCard.h"
+#include "ChestCard.h"
+#include "KeyCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -28,10 +30,10 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new MermaidCard(4));
-    _deck.push_back(new OracleCard(5));
+    _deck.push_back(new KeyCard(4));
+    _deck.push_back(new ChestCard(5));
     _deck.push_back(new MermaidCard(6));
-    _deck.push_back(new KrakenCard(3));
+    _deck.push_back(new MermaidCard(4));
 }
 
 void Game::shuffleDeck() {
@@ -179,4 +181,14 @@ void Game::forceKrakenDraws(Player& player, int count) {
 
         player.printPlayArea();
     }
+}
+
+Card* Game::drawOneFromDiscard() {
+    if (_discardPile.empty()) {
+        return nullptr;
+    }
+
+    Card* card = _discardPile.back();
+    _discardPile.pop_back();
+    return card;
 }
