@@ -39,6 +39,9 @@
     <ClCompile Include="HookCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SwordCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HookCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SwordCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
