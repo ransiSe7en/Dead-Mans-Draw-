@@ -31,7 +31,7 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new HookCard(5));
+    _deck.push_back(new SwordCard(5));
     _deck.push_back(new MermaidCard(4));
     _deck.push_back(new MermaidCard(6));
 }
