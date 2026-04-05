@@ -20,14 +20,24 @@ void MapCard::play(Game& game, Player& player) {
         return;
     }
 
-    Card* chosen = drawn[0];
-
-    for (auto c : drawn) {
-        if (c->value() > chosen->value()) {
-            chosen = c;
-        }
+    std::cout << "Select a card from discard pile to play:" << std::endl;
+    for (int i = 0; i < static_cast<int>(drawn.size()); i++) {
+        std::cout << "  " << (i + 1) << ". " << drawn[i]->str() << std::endl;
     }
 
+    int choice;
+    std::cin >> choice;
+
+    if (choice < 1 || choice > static_cast<int>(drawn.size())) {
+        std::cout << "Map: invalid choice." << std::endl;
+
+        for (auto c : drawn) {
+            game.addToDiscard(c);
+        }
+        return;
+    }
+
+    Card* chosen = drawn[0];
     player.addToPlayArea(chosen);
 
     std::cout << "Map: played " << chosen->str()
