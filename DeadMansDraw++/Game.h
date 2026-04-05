@@ -34,4 +34,6 @@ public:
     void nextPlayer();
 
     Card* peekTopDeck() const;
+
+    std::vector<Card*> drawFromDiscard(int count);
 };

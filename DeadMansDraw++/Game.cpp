@@ -7,6 +7,7 @@
 #include "CannonCard.h"
 #include "HookCard.h"
 #include "SwordCard.h"
+#include "MapCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -26,8 +27,9 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new SwordCard(5));
+    _deck.push_back(new MapCard(5));
     _deck.push_back(new MermaidCard(6));
+    _deck.push_back(new MermaidCard(4));
 }
 
 void Game::shuffleDeck() {
@@ -39,7 +41,7 @@ void Game::start() {
 
     std::cout << "Game started" << std::endl;
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 2; i++) {
         playTurn();
         nextPlayer();
     }
@@ -137,4 +139,19 @@ Card* Game::peekTopDeck() const {
         return nullptr;
     }
     return _deck.back();
+}
+
+std::vector<Card*> Game::drawFromDiscard(int count) {
+    std::vector<Card*> drawn;
+
+    for (int i = 0; i < count; i++) {
+        if (_discardPile.empty()) {
+            break;
+        }
+
+        drawn.push_back(_discardPile.back());
+        _discardPile.pop_back();
+    }
+
+    return drawn;
 }
