@@ -16,6 +16,7 @@ public:
     Player();
 
     bool playCard(Card* card, Game& game);
+    bool playMovedCard(Card* card, Game& game);
 
     void addToPlayArea(Card* card);
     bool hasSuitInPlayArea(Card* card) const;

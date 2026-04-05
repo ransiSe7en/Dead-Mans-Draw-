@@ -36,7 +36,14 @@ void HookCard::play(Game& game, Player& player) {
     Card* chosen = bankCards[choice - 1];
 
     player.removeBankCard(chosen);
-    player.addToPlayArea(chosen);
+
+    bool bust = player.playMovedCard(chosen, game);
+
+    if (bust) {
+        std::cout << "Bust!" << std::endl;
+        player.resolveBustWithAnchor(game);
+        return;
+    }
 
     std::cout << "Hook moved " << chosen->str() << " from bank to play area." << std::endl;
 }

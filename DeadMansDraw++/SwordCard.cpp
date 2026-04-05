@@ -38,7 +38,13 @@ void SwordCard::play(Game& game, Player& player) {
     Card* chosen = bankCards[choice - 1];
 
     other->removeBankCard(chosen);
-    player.addToPlayArea(chosen);
+    bool bust = player.playMovedCard(chosen, game);
+
+    if (bust) {
+        std::cout << "Bust!" << std::endl;
+        player.resolveBustWithAnchor(game);
+        return;
+    }
 
     std::cout << "Sword took " << chosen->str() << " from " << other->getName() << "'s bank into play area." << std::endl;
 }

@@ -20,6 +20,17 @@ bool Player::playCard(Card* card, Game& game) {
     return false;
 }
 
+bool Player::playMovedCard(Card* card, Game& game) {
+    addToPlayArea(card);
+
+    if (isBust()) {
+        return true;
+    }
+
+    card->play(game, *this);
+    return false;
+}
+
 void Player::addToPlayArea(Card* card) {
     _playArea.push_back(card);
 }

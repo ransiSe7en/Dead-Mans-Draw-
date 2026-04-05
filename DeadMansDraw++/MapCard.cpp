@@ -37,8 +37,20 @@ void MapCard::play(Game& game, Player& player) {
         return;
     }
 
-    Card* chosen = drawn[0];
-    player.addToPlayArea(chosen);
+    Card* chosen = drawn[choice - 1];
+    bool bust = player.playMovedCard(chosen, game);
+
+    for (auto c : drawn) {
+        if (c != chosen) {
+            game.addToDiscard(c);
+        }
+    }
+
+    if (bust) {
+        std::cout << "Bust!" << std::endl;
+        player.resolveBustWithAnchor(game);
+        return;
+    }
 
     std::cout << "Map: played " << chosen->str()
         << " from discard pile into play area." << std::endl;
