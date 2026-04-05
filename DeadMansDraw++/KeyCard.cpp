@@ -16,5 +16,5 @@ void KeyCard::play(Game& game, Player& player) {
 }
 
 void KeyCard::willAddToBank(Game& game, Player& player) {
-   // empty as chest currntly handles both itslef and key
+   // empty as chest currntly handles both itself and key 
 }

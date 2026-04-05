@@ -10,6 +10,7 @@ private:
     std::string _name;
     std::vector<Card*> _bank;
     std::vector<Card*> _playArea;
+    bool _anchorActive;
 
 public:
     Player();
@@ -37,4 +38,8 @@ public:
 
     bool hasTypeInPlayArea(CardType type) const;
     int playAreaSize() const;
+
+    bool hasAnchorActive() const;
+    void setAnchorActive(bool active);
+    void resolveBustWithAnchor(Game& game);
 };

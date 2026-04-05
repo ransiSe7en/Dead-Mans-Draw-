@@ -11,6 +11,7 @@
 #include "KrakenCard.h"
 #include "ChestCard.h"
 #include "KeyCard.h"
+#include "AnchorCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -30,10 +31,10 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new KeyCard(4));
-    _deck.push_back(new ChestCard(5));
-    _deck.push_back(new MermaidCard(6));
     _deck.push_back(new MermaidCard(4));
+    _deck.push_back(new MermaidCard(6));
+    _deck.push_back(new AnchorCard(5));
+    _deck.push_back(new OracleCard(3));
 }
 
 void Game::shuffleDeck() {
@@ -89,7 +90,8 @@ void Game::playTurn() {
 
         if (bust) {
             std::cout << "Bust!" << std::endl;
-            player->discardPlayArea(*this);
+            player->resolveBustWithAnchor(*this);
+            player->printBank();
             break;
         }
 

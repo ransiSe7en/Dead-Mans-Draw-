@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cstdlib>
 
-Player::Player() {
+Player::Player(): _anchorActive(false) {
     std::string names[] = { "Sam", "Billy", "Jen", "Bob", "Sally", "Joe", "Sue", "Sasha", "Tina", "Marge" };
     _name = names[rand() % 10];
 }
@@ -50,6 +50,7 @@ void Player::bankPlayArea(Game& game) {
         _bank.push_back(c);
     }
     _playArea.clear();
+    _anchorActive = false;
 }
 
 void Player::discardPlayArea(Game& game) {
@@ -114,7 +115,6 @@ Card* Player::getHighestBankCardOfSuit(CardType type) const {
             }
         }
     }
-
     return highest;
 }
 
@@ -142,4 +142,45 @@ bool Player::hasTypeInPlayArea(CardType type) const {
 
 int Player::playAreaSize() const {
     return static_cast<int>(_playArea.size());
+}
+
+bool Player::hasAnchorActive() const {
+    return _anchorActive;
+}
+
+void Player::setAnchorActive(bool active) {
+    _anchorActive = active;
+}
+
+void Player::resolveBustWithAnchor(Game& game) {
+    if (!_anchorActive) {
+        discardPlayArea(game);
+        return;
+    }
+
+    int anchorIndex = -1;
+
+    for (int i = 0; i < static_cast<int>(_playArea.size()); i++) {
+        if (_playArea[i]->type() == CardType::Anchor) {
+            anchorIndex = i;
+            break;
+        }
+    }
+
+    if (anchorIndex == -1) {
+        discardPlayArea(game);
+        _anchorActive = false;
+        return;
+    }
+
+    for (int i = 0; i < anchorIndex; i++) {
+        _bank.push_back(_playArea[i]);
+    }
+
+    for (int i = anchorIndex; i < static_cast<int>(_playArea.size()); i++) {
+        game.addToDiscard(_playArea[i]);
+    }
+
+    _playArea.clear();
+    _anchorActive = false;
 }

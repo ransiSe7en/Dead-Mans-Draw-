@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnchorCard.cpp" />
     <ClCompile Include="CannonCard.cpp" />
     <ClCompile Include="Card.cpp" />
     <ClCompile Include="ChestCard.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="SwordCard.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnchorCard.h" />
     <ClInclude Include="CannonCard.h" />
     <ClInclude Include="Card.h" />
     <ClInclude Include="ChestCard.h" />
