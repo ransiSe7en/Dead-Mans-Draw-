@@ -36,4 +36,6 @@ public:
     Card* peekTopDeck() const;
 
     std::vector<Card*> drawFromDiscard(int count);
+
+    void forceKrakenDraws(Player& player, int count);
 };

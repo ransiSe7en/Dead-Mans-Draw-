@@ -8,6 +8,7 @@
 #include "HookCard.h"
 #include "SwordCard.h"
 #include "MapCard.h"
+#include "KrakenCard.h"
 
 Game::Game() {
     _currentPlayerIndex = 0;
@@ -27,9 +28,10 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new MapCard(5));
-    _deck.push_back(new MermaidCard(6));
     _deck.push_back(new MermaidCard(4));
+    _deck.push_back(new OracleCard(5));
+    _deck.push_back(new MermaidCard(6));
+    _deck.push_back(new KrakenCard(3));
 }
 
 void Game::shuffleDeck() {
@@ -154,4 +156,27 @@ std::vector<Card*> Game::drawFromDiscard(int count) {
     }
 
     return drawn;
+}
+
+void Game::forceKrakenDraws(Player& player, int count) {
+    for (int i = 0; i < count; i++) {
+        Card* drawn = drawCard();
+
+        if (drawn == nullptr) {
+            std::cout << "Kraken: deck is empty." << std::endl;
+            return;
+        }
+
+        std::cout << "Kraken forced draw: " << drawn->str() << std::endl;
+
+        bool bust = player.playCard(drawn, *this);
+
+        if (bust) {
+            std::cout << "Bust!" << std::endl;
+            player.discardPlayArea(*this);
+            return;
+        }
+
+        player.printPlayArea();
+    }
 }

@@ -45,6 +45,9 @@
     <ClCompile Include="MapCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="KrakenCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Card.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MapCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KrakenCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
