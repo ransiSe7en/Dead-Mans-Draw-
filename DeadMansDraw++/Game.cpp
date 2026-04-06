@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <random>
 #include "Game.h"
 #include "Player.h"
 #include "Card.h"
@@ -31,13 +33,28 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new MermaidCard(4));
-    _deck.push_back(new MermaidCard(5));
-    _deck.push_back(new MermaidCard(6));
-    _deck.push_back(new MermaidCard(7));
+    _deck.clear();
+
+    for (int value = 2; value <= 7; value++) {
+        _deck.push_back(new CannonCard(value));
+        _deck.push_back(new ChestCard(value));
+        _deck.push_back(new KeyCard(value));
+        _deck.push_back(new SwordCard(value));
+        _deck.push_back(new HookCard(value));
+        _deck.push_back(new OracleCard(value));
+        _deck.push_back(new MapCard(value));
+        _deck.push_back(new KrakenCard(value));
+    }
+
+    for (int value = 4; value <= 9; value++) {
+        _deck.push_back(new MermaidCard(value));
+    };
 }
 
 void Game::shuffleDeck() {
+    std::vector<Card*> shuffledDeck{ _deck.begin(), _deck.end() };
+    std::shuffle(shuffledDeck.begin(), shuffledDeck.end(), std::mt19937{ std::random_device{}() });
+    std::copy(shuffledDeck.begin(), shuffledDeck.end(), _deck.begin());
 }
 
 void Game::start() {
