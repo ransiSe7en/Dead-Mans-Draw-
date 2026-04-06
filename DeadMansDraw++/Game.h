@@ -40,4 +40,8 @@ public:
     void forceKrakenDraws(Player& player, int count);
 
     Card* drawOneFromDiscard();
+
+    bool isGameOver() const;
+    void printFinalScores() const;
+    int getRound() const;
 };

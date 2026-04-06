@@ -31,9 +31,10 @@ void Game::initialiseGame() {
 }
 
 void Game::createDeck() {
-    _deck.push_back(new MapCard(5));
-    _deck.push_back(new MermaidCard(6));
     _deck.push_back(new MermaidCard(4));
+    _deck.push_back(new MermaidCard(5));
+    _deck.push_back(new MermaidCard(6));
+    _deck.push_back(new MermaidCard(7));
 }
 
 void Game::shuffleDeck() {
@@ -42,34 +43,36 @@ void Game::shuffleDeck() {
 void Game::start() {
     initialiseGame();
     createDeck();
+    shuffleDeck();
 
-    std::cout << "Game started" << std::endl;
-
-    for (int i = 0; i < 2; i++) {
+    while (!isGameOver()) {
         playTurn();
+
+        if (isGameOver()) {
+            break;
+        }
+
         nextPlayer();
+        _turn++;
+        _round = getRound();
     }
 
-    Card* drawn = drawCard();
-    if (drawn != nullptr) {
-        bool bust = getCurrentPlayer()->playCard(drawn, *this);
-        std::cout << "Drew: " << drawn->str() << std::endl;
-        
-        if (bust) {
-            std::cout << "Player busted!" << std::endl;
-        }
-        else {
-            getCurrentPlayer()->printPlayArea();
-        }
-    
-    }
+    printFinalScores();
+}
+
+int Game::getRound() const {
+    return ((_turn - 1) / 2) + 1;
+}
+
+bool Game::isGameOver() const {
+    return _deck.empty() || _turn > 20;
 }
 
 void Game::playTurn() {
     Player* player = getCurrentPlayer();
 
     std::cout << std::endl;
-    std::cout << "----- Turn " << _turn << " -----" << std::endl;
+    std::cout << "Round " << getRound() << ", Turn " << _turn << std::endl;
     std::cout << player->getName() << "'s turn" << std::endl;
     player->printBank();
 
@@ -96,6 +99,15 @@ void Game::playTurn() {
 
         player->printPlayArea();
 
+        if (_deck.empty()) {
+            std::cout << "Deck is empty." << std::endl;
+            player->bankPlayArea(*this);
+            std::cout << "Cards banked." << std::endl;
+            player->printBank();
+            std::cout << "Score: " << player->calculateScore() << std::endl;
+            return;
+        }
+
         std::string choice;
         std::cout << "Draw again? (y/n): ";
         std::cin >> choice;
@@ -108,13 +120,10 @@ void Game::playTurn() {
             continueDrawing = false;
         }
     }
-
-    _turn++;
 }
 
 Card* Game::drawCard() {
     if (_deck.empty()) {
-        std::cout << "Deck is empty" << std::endl;
         return nullptr;
     }
 
@@ -176,7 +185,7 @@ void Game::forceKrakenDraws(Player& player, int count) {
 
         if (bust) {
             std::cout << "Bust!" << std::endl;
-            player.discardPlayArea(*this);
+            player.resolveBustWithAnchor(*this);
             return;
         }
 
@@ -192,4 +201,25 @@ Card* Game::drawOneFromDiscard() {
     Card* card = _discardPile.back();
     _discardPile.pop_back();
     return card;
+}
+
+void Game::printFinalScores() const {
+    std::cout << std::endl;
+    std::cout << "===== Final Scores =====" << std::endl;
+
+    int score1 = _players[0]->calculateScore();
+    int score2 = _players[1]->calculateScore();
+
+    std::cout << _players[0]->getName() << ": " << score1 << std::endl;
+    std::cout << _players[1]->getName() << ": " << score2 << std::endl;
+
+    if (score1 > score2) {
+        std::cout << _players[0]->getName() << " wins!" << std::endl;
+    }
+    else if (score2 > score1) {
+        std::cout << _players[1]->getName() << " wins!" << std::endl;
+    }
+    else {
+        std::cout << "It's a tie!" << std::endl;
+    }
 }
