@@ -60,7 +60,7 @@ void Game::shuffleDeck() {
 void Game::start() {
     initialiseGame();
     createDeck();
-    shuffleDeck();
+    //shuffleDeck();
 
     while (!isGameOver()) {
         playTurn();

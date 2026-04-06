@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <map>
 #include "Player.h"
 #include "Card.h"
 #include "Game.h"
@@ -88,28 +90,45 @@ int Player::calculateScore() const {
     return total; 
 }
 
-void Player::printBank() const {
-    std::cout << "Bank: " << std::endl;
-    if (_bank.empty()) {
+void Player::printCollection(const std::vector<Card*>& collection, const std::string& title) const {
+    std::cout << title << ":" << std::endl;
+
+    if (collection.empty()) {
         std::cout << "  Empty" << std::endl;
         return;
     }
 
-    for (auto c : _bank) {
-        std::cout << "  " << c->str() << std::endl;
+    std::map<CardType, std::vector<Card*>> grouped;
+
+    for (auto c : collection) {
+        grouped[c->type()].push_back(c);
+    }
+
+    for (auto& pair : grouped) {
+        std::vector<Card*>& cards = pair.second;
+
+        std::sort(cards.begin(), cards.end(), [](Card* a, Card* b) {
+            return a->value() > b->value();
+            });
+
+        std::cout << "  ";
+        for (int i = 0; i < static_cast<int>(cards.size()); i++) {
+            if (i > 0) {
+                std::cout << ", ";
+            }
+            std::cout << cards[i]->str();
+        }
+        std::cout << std::endl;
     }
 }
 
-void Player::printPlayArea() const {
-    std::cout << "Play Area: " << std::endl;
-    if (_playArea.empty()) {
-        std::cout << "  Empty" << std::endl;
-        return;
-    }
 
-    for (auto c : _playArea) {
-        std::cout << "  " << c->str() << std::endl;
-    }
+void Player::printBank() const {
+    printCollection(_bank, "Bank");
+}
+
+void Player::printPlayArea() const {
+    printCollection(_playArea, "Play Area");
 }
 
 std::string Player::getName() const {

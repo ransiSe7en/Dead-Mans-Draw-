@@ -11,6 +11,7 @@ private:
     std::vector<Card*> _bank;
     std::vector<Card*> _playArea;
     bool _anchorActive;
+    void printCollection(const std::vector<Card*>& collection, const std::string& title) const;
 
 public:
     Player();
