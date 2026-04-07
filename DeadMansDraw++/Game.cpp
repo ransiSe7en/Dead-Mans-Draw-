@@ -60,7 +60,7 @@ void Game::shuffleDeck() {
 void Game::start() {
     initialiseGame();
     createDeck();
-    //shuffleDeck();
+    shuffleDeck();
 
     while (!isGameOver()) {
         playTurn();
@@ -110,6 +110,11 @@ void Game::playTurn() {
         if (bust) {
             std::cout << "Bust!" << std::endl;
             player->resolveBustWithAnchor(*this);
+            player->printBank();
+            break;
+        }
+
+        if (player->hasBustedThisTurn()) {
             player->printBank();
             break;
         }
@@ -203,6 +208,7 @@ void Game::forceKrakenDraws(Player& player, int count) {
         if (bust) {
             std::cout << "Bust!" << std::endl;
             player.resolveBustWithAnchor(*this);
+            player.setBustedThisTurn(true);
             return;
         }
 

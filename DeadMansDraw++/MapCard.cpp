@@ -49,15 +49,11 @@ void MapCard::play(Game& game, Player& player) {
     if (bust) {
         std::cout << "Bust!" << std::endl;
         player.resolveBustWithAnchor(game);
+        player.setBustedThisTurn(true);
         return;
     }
 
     std::cout << "Map: played " << chosen->str()
         << " from discard pile into play area." << std::endl;
 
-    for (auto c : drawn) {
-        if (c != chosen) {
-            game.addToDiscard(c);
-        }
-    }
 }

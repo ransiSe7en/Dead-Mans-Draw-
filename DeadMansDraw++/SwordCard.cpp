@@ -43,6 +43,7 @@ void SwordCard::play(Game& game, Player& player) {
     if (bust) {
         std::cout << "Bust!" << std::endl;
         player.resolveBustWithAnchor(game);
+        player.setBustedThisTurn(true);
         return;
     }
 

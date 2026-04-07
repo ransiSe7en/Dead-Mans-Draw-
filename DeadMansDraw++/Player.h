@@ -12,9 +12,13 @@ private:
     std::vector<Card*> _playArea;
     bool _anchorActive;
     void printCollection(const std::vector<Card*>& collection, const std::string& title) const;
+    bool _bustedThisTurn;
 
 public:
     Player();
+    
+    bool hasBustedThisTurn() const;
+    void setBustedThisTurn(bool busted);
 
     bool playCard(Card* card, Game& game);
     bool playMovedCard(Card* card, Game& game);

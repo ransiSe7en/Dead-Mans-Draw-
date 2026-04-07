@@ -6,12 +6,21 @@
 #include <iostream>
 #include <cstdlib>
 
-Player::Player(): _anchorActive(false) {
+Player::Player(): _anchorActive(false), _bustedThisTurn(false) {
     std::string names[] = { "Sam", "Billy", "Jen", "Bob", "Sally", "Joe", "Sue", "Sasha", "Tina", "Marge" };
     _name = names[rand() % 10];
 }
 
+bool Player::hasBustedThisTurn() const {
+    return _bustedThisTurn;
+}
+
+void Player::setBustedThisTurn(bool busted) {
+    _bustedThisTurn = busted;
+}
+
 bool Player::playCard(Card* card, Game& game) {
+    _bustedThisTurn = false;
     addToPlayArea(card);
 
     if (isBust()) {
@@ -23,6 +32,7 @@ bool Player::playCard(Card* card, Game& game) {
 }
 
 bool Player::playMovedCard(Card* card, Game& game) {
+    _bustedThisTurn = false;
     addToPlayArea(card);
 
     if (isBust()) {
