@@ -62,6 +62,8 @@ void Game::start() {
     createDeck();
     shuffleDeck();
 
+    std::cout << "Starting Dead Man's Draw++!" << std::endl;
+
     while (!isGameOver()) {
         playTurn();
 
@@ -89,6 +91,7 @@ void Game::playTurn() {
     Player* player = getCurrentPlayer();
 
     std::cout << std::endl;
+    std::cout << "========================================" << std::endl;
     std::cout << "Round " << getRound() << ", Turn " << _turn << std::endl;
     std::cout << player->getName() << "'s turn" << std::endl;
     player->printBank();
@@ -228,7 +231,7 @@ Card* Game::drawOneFromDiscard() {
 
 void Game::printFinalScores() const {
     std::cout << std::endl;
-    std::cout << "===== Final Scores =====" << std::endl;
+    std::cout << "============= Final Scores =============" << std::endl;
 
     int score1 = _players[0]->calculateScore();
     int score2 = _players[1]->calculateScore();
